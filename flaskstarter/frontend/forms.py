@@ -13,7 +13,9 @@ from ..utils import (NAME_LEN_MIN, NAME_LEN_MAX, PASSWORD_LEN_MIN,
 
 from ..user import Users
 
-terms_html = Markup('<a target="blank" href="/terms">Terms of Service</a>')
+terms_html = Markup('<a target="blank" href="#">Terms of Service</a>')
+
+forgotpassword_html = Markup('<a href="/reset_password" class="text-muted float-end"><small>Forgot your password?</small></a>')
 
 
 class LoginForm(FlaskForm):
@@ -30,10 +32,10 @@ class SignupForm(FlaskForm):
     next = HiddenField()
     name = TextField(u'Name', [Required(), Length(NAME_LEN_MIN, NAME_LEN_MAX)])
     email = EmailField(u'Email', [Required(), Email()])
-    password = PasswordField(u'Password',
+    password = PasswordField(u'Password' ,
                              [Required(), Length(PASSWORD_LEN_MIN, PASSWORD_LEN_MAX)],
                              description=u' 6 or more characters.')
-    agree = BooleanField(u'Agree to the ' + terms_html, [Required()])
+    agree = BooleanField(u'I Agree to the ' + terms_html, [Required()])
     submit = SubmitField('Sign up')
 
     def validate_email(self, field):
